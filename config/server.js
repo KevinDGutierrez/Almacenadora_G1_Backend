@@ -1,10 +1,12 @@
 'use strict';
  
- import express from 'express';
- import cors from 'cors';
- import helmet from 'helmet';
- import morgan from 'morgan';
- import { dbConnection } from './mongo.js';
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import { dbConnection } from './mongo.js';
+import clientRoutes from '../src/client/client.routes.js'
+import supplierRoutes from '../src/suppliers/supplier.routes.js'
  
  const middlewares = (app) => {
      app.use(express.urlencoded({ extended: false }));
@@ -15,7 +17,8 @@
  }
  
  const routes = (app) => {
- 
+    app.use("/AlmacendoraG1/vlm/client", clientRoutes)
+    app.use("/AlmacendoraG1/vlm/suppliers", supplierRoutes)
  };
  
  const conectarDB = async () => {
