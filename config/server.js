@@ -5,6 +5,8 @@
  import helmet from 'helmet';
  import morgan from 'morgan';
  import { dbConnection } from './mongo.js';
+ import productsRoutes from '../src/product/product-routes.js'
+ import categoriesRoutes from '../src/categories/categories-routes.js'
  
  const middlewares = (app) => {
      app.use(express.urlencoded({ extended: false }));
@@ -15,7 +17,8 @@
  }
  
  const routes = (app) => {
- 
+    app.use("/AlmacendoraG1/v1/products", productsRoutes);
+    app.use("/AlmacendoraG1/v1/add-categories ", categoriesRoutes);
  };
  
  const conectarDB = async () => {
