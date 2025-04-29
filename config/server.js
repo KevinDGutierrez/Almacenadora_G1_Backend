@@ -5,7 +5,9 @@
  import helmet from 'helmet';
  import morgan from 'morgan';
  import { dbConnection } from './mongo.js';
- 
+ import informesRoutes from '../src/inventory/informe.routes.js';
+ import estadisticasRoutes from '../src/estadistic/estadistic.routes.js';
+
  const middlewares = (app) => {
      app.use(express.urlencoded({ extended: false }));
      app.use(cors());
@@ -15,9 +17,9 @@
  }
  
  const routes = (app) => {
- 
+    app.use("/AlmacenadoraG1/vlm/inventory", informesRoutes);  
+    app.use("/AlmacenadoraG1/vlm/estadisticas", estadisticasRoutes);  
  };
- 
  const conectarDB = async () => {
      try {
          await dbConnection();
