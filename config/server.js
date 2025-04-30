@@ -5,6 +5,8 @@
  import helmet from 'helmet';
  import morgan from 'morgan';
  import { dbConnection } from './mongo.js';
+ import userRoutes from '../src/users/user.routes.js';
+ import { createAdmin  } from '../src/users/user.controller.js';
  
  const middlewares = (app) => {
      app.use(express.urlencoded({ extended: false }));
@@ -15,13 +17,14 @@
  }
  
  const routes = (app) => {
- 
+    app.use('/AlmacendoraG1/v1/users', userRoutes);
  };
  
  const conectarDB = async () => {
      try {
          await dbConnection();
          console.log('Database connection successful!!');
+         await createAdmin();
      } catch (error) {
          console.error('Error connecting to database:', error);
          process.exit(1);
