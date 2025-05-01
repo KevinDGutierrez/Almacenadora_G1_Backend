@@ -18,6 +18,7 @@ const MovimientoSchema = new Schema({
   },
   empleado: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   motivo: {
@@ -27,15 +28,12 @@ const MovimientoSchema = new Schema({
   destino: {
     type: String,
     required: true
-  }
-}, { _id: false });
-
-const MovimientosSchema = new Schema({
+  },
   producto: {
     type: Schema.Types.ObjectId,
+    ref: 'Producto',
     required: true
-  },
-  historial: [MovimientoSchema]
+  }
 }, { timestamps: true });
 
-export default model('Movimientos', MovimientosSchema);
+export default model('Movimiento', MovimientoSchema);
