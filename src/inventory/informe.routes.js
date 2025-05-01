@@ -1,12 +1,11 @@
 import { Router } from 'express';
-//import Product from '../../models/product.js';
+import Product from '../../src/product/product-model.js'; 
 
 const router = Router();
 
 router.get('/informe-inventario', async (req, res) => {
   try {
-
-    const productos = await Product.find();
+    const productos = await Product.find();  
 
     const totalProductos = productos.reduce((total, producto) => total + producto.cantidadEnStock, 0);
     const valorInventario = productos.reduce((total, producto) => total + (producto.cantidadEnStock * producto.precio), 0);
@@ -14,7 +13,7 @@ router.get('/informe-inventario', async (req, res) => {
     res.json({
       totalProductos,
       valorInventario,
-      productos, // productos
+      productos, 
     });
   } catch (error) {
     console.error(error);
