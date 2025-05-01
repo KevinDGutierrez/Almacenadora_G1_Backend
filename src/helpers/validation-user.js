@@ -30,30 +30,12 @@ export const checkPassword = async (user, password = '') => {
     }
 };
 
-export const checkCredentials = async (user, req, password = '') => {
-    const { username, password: reqPassword } = req.body;
-
-    if (!username || !reqPassword) {
-        throw new Error('Username and password must be provided');
-    }
-
-    const inputUsername = username.trim().toLowerCase();
-    const dbUsername = user.username.trim().toLowerCase();
-
-    if (req.user.role !== 'ADMIN' && inputUsername !== dbUsername) {
-        throw new Error('Invalid username');
-    }
-
-    const isMatch = await verify(user.password, reqPassword);
+export const checkCredentials = async (user, password = '') => {
+    const isMatch = await verify(user.password, password);
     if (!isMatch) {
-        throw new Error('Invalid password');
+        throw new Error('Invalid credentials');
     }
 };
-
-
-
-
-
 
 export const checkRolePermission = (user, idParam) => {
     if (user.id !== idParam && user.role !== 'ADMINISTRATOR') {
