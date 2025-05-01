@@ -1,0 +1,190 @@
+{
+	"info": {
+		"_postman_id": "930cc7b8-6670-4c3a-9f03-c64de009904c",
+		"name": "User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42402387"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jose\",\r\n    \"surname\": \"Cortez\",\r\n    \"username\": \"jcortez\",\r\n    \"email\": \"jcortez@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"phone\": \"23214556\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacendoraG1/v1/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacendoraG1",
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Daniel\",\r\n    \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacendoraG1/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacendoraG1",
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/AlmacendoraG1/v1/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacendoraG1",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/AlmacendoraG1/v1/users/6812bf9527624c9a8778e9f4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacendoraG1",
+						"v1",
+						"users",
+						"6812bf9527624c9a8778e9f4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateuser",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEyOGI5Yzc0MDU1YmY3NDM5YWQxNTQiLCJpYXQiOjE3NDYwNTE3NTIsImV4cCI6MTc0NjA1NTM1Mn0.fj2bvm7ACkdpKprYJcsrChV7Ltvd1RHa_Lk2cXCGviQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"kayrita\",\r\n    \"surname\": \"Gutierrez\",\r\n    \"username\": \"kayrita\",\r\n    \"email\": \"kayra@gmail.com\",\r\n    \"actualpassword\":\"12345678\",\r\n    \"password\": \"12345678\",\r\n    \"phone\": \"23214556\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacendoraG1/v1/users/68128b9c74055bf7439ad154",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacendoraG1",
+						"v1",
+						"users",
+						"68128b9c74055bf7439ad154"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEyOGI5Yzc0MDU1YmY3NDM5YWQxNTQiLCJpYXQiOjE3NDYwNTg2MTAsImV4cCI6MTc0NjA2MjIxMH0.er6h0kb985ObpeqqUC4SEdzaBteTTWDepiVISYrz9Bo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"kayrita\",\r\n    \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacendoraG1/v1/users/681133b5a17155d88664db27",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacendoraG1",
+						"v1",
+						"users",
+						"681133b5a17155d88664db27"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
