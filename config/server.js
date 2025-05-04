@@ -6,6 +6,8 @@
  import morgan from 'morgan';
  import { dbConnection } from './mongo.js';
  import userRoutes from '../src/users/user.routes.js';
+ import clientRoutes from '../src/client/client.routes.js'
+ import supplierRoutes from '../src/suppliers/supplier.routes.js'
  import { createAdmin  } from '../src/users/user.controller.js';
  
  const middlewares = (app) => {
@@ -18,6 +20,8 @@
  
  const routes = (app) => {
     app.use('/AlmacendoraG1/v1/users', userRoutes);
+    app.use("/AlmacendoraG1/vlm/client", clientRoutes)
+    app.use("/AlmacendoraG1/vlm/suppliers", supplierRoutes)
  };
  
  const conectarDB = async () => {
