@@ -2,18 +2,52 @@ import Supplier from './supplier.model.js';
 
 export const createSupplier = async (req, res) => {
     try {
-        const { name, email, phone, address, productsSupplied } = req.body;
-
-        const supplier = new Supplier({ name, email, phone, address, productsSupplied });
-        await supplier.save();
-
-        return res.status(201).json({ success: true, msg: "Proveedor creado correctamente", supplier  });
-
+      const { name, email, phone, address, productsSupplied } = req.body;
+  
+      if (!name || !email) {
+        return res.status(400).json({
+          success: false,
+          msg: "El nombre y el correo electrónico son obligatorios",
+        });
+      }
+  
+      const supplier = new Supplier({
+        name,
+        email,
+        phone,
+        address,
+        productsSupplied,
+      });
+  
+      await supplier.save();
+  
+      return res.status(201).json({
+        success: true,
+        msg: "Proveedor creado correctamente",
+        supplier,
+      });
+  
     } catch (error) {
-        console.error("Error en createSupplier:", error);
-        return res.status(500).json({ success: false, msg: "Error al crear el proveedor", error: error.message });
+      console.error("🔥 Error en createSupplier:", error);
+  
+      // Detectar duplicado de email (MongoError 11000)
+      if (error.code === 11000 && error.keyPattern?.email) {
+        return res.status(400).json({
+          success: false,
+          msg: "El correo electrónico ya existe",
+        });
+      }
+  
+      // Enviar error completo en desarrollo
+      return res.status(500).json({
+        success: false,
+        msg: "Error al crear el proveedor",
+        error: error.message,
+        detalle: error, // 🔍 Para debug real
+      });
     }
-};
+  };
+  
 
 export const getSuppliers = async (req, res) => {
     try {
@@ -24,6 +58,40 @@ export const getSuppliers = async (req, res) => {
         return res.status(500).json({ success: false, msg: "Error al obtener proveedores", error: error.message });
     }
 };
+
+export const getSupplierById = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      // Validar si el ID es un ObjectId válido
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+          success: false,
+          msg: "ID inválido",
+        });
+      }
+  
+      const supplier = await Supplier.findById(id);
+      if (!supplier) {
+        return res.status(404).json({
+          success: false,
+          msg: "Proveedor no encontrado",
+        });
+      }
+  
+      return res.status(200).json({
+        success: true,
+        supplier,
+      });
+    } catch (error) {
+      console.error("Error en getSupplierById:", error);
+      return res.status(500).json({
+        success: false,
+        msg: "Error al obtener el proveedor",
+        error: error.message,
+      });
+    }
+  };
 
 export const updateSupplier = async (req, res) => {
     try {
