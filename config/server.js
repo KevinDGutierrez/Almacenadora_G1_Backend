@@ -16,7 +16,6 @@ import productsRoutes from '../src/product/product-routes.js';
 import categoriesRoutes from '../src/categories/categories-routes.js'
 import movimientosRoutes from '../src/movimientos/movimientos.routes.js'
 
-
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
     app.use(cors());
@@ -26,13 +25,13 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
-    app.use('/AlmacendoraG1/vlm/users', userRoutes);
-    app.use("/AlmacendoraG1/vlm/client", clientRoutes);
-    app.use("/AlmacendoraG1/vlm/suppliers", supplierRoutes);
+    app.use('/AlmacenadoraG1/vlm/users', userRoutes);
+    app.use("/AlmacenadoraG1/vlm/client", clientRoutes);
+    app.use("/AlmacenadoraG1/vlm/suppliers", supplierRoutes);
     app.use("/AlmacenadoraG1/vlm/inventory", informesRoutes);
     app.use("/AlmacenadoraG1/vlm/estadisticas", estadisticasRoutes);
-    app.use("/AlmacendoraG1/v1/products", productsRoutes);
-    app.use("/AlmacendoraG1/v1/add-categories ", categoriesRoutes);
+    app.use("/AlmacenadoraG1/vlm/products", productsRoutes);
+    app.use("/AlmacenadoraG1/vlm/add-categories", categoriesRoutes);
     app.use("/AlmacenadoraG1/vlm/movements", movimientosRoutes);
 };
 
