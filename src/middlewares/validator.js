@@ -1,6 +1,6 @@
-import { body } from "express-validator";
+import { body, check } from "express-validator";
 import { validarCampos } from "./validar-campos.js";
-import { existenteEmail } from "../helpers/db-validator.js";
+import { existenteEmail, productExists } from "../helpers/db-validator.js";
 
 export const registerValidator = [
     body("name", "The name is required").not().isEmpty(),

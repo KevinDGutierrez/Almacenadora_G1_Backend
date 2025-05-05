@@ -12,7 +12,7 @@ import supplierRoutes from '../src/suppliers/supplier.routes.js';
 import { createAdmin } from '../src/users/user.controller.js';
 
 import informesRoutes from '../src/inventory/informe.routes.js';
-import estadisticasRoutes from '../src/estadistic/estadisticas.routes.js';
+import estadisticasRoutes from '../src/estadistic/estadistic.routes.js';
 
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
@@ -23,7 +23,7 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
-    app.use('/AlmacendoraG1/v1/users', userRoutes);
+    app.use('/AlmacendoraG1/vlm/users', userRoutes);
     app.use("/AlmacendoraG1/vlm/client", clientRoutes);
     app.use("/AlmacendoraG1/vlm/suppliers", supplierRoutes);
     app.use("/AlmacenadoraG1/vlm/inventory", informesRoutes);

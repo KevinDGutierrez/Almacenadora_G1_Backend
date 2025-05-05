@@ -1,6 +1,7 @@
 import User from '../users/user.model.js'
 import Client from '../client/client.model.js'
 import Supplier from '../suppliers/supplier.model.js'
+import Product from '../product/product-model.js'
 
 export const clientExists = async (name = '') => {
     const clientExists = await Client.findOne({ name });
@@ -42,3 +43,12 @@ export const existeUserById = async (id = '') => {
         throw new Error(`El ID ${ id } no es un usuario válido`);
     }
 };
+
+
+export const productExists = async (id = '') => {
+    const productExists = await Product.findById(id);
+
+    if (!productExists) {
+        throw new Error(`El ID ${ id } no es un usuario válido`);
+    }
+}
