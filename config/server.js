@@ -12,8 +12,10 @@ import clientRoutes from '../src/client/client.routes.js';
 import supplierRoutes from '../src/suppliers/supplier.routes.js';
 import informesRoutes from '../src/inventory/informe.routes.js';
 import estadisticasRoutes from '../src/estadistic/estadistic.routes.js';
-import productsRoutes from '../src/product/product-routes.js'
+import productsRoutes from '../src/product/product-routes.js';
 import categoriesRoutes from '../src/categories/categories-routes.js'
+import movimientosRoutes from '../src/movimientos/movimientos.routes.js'
+
 
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
@@ -31,6 +33,7 @@ const routes = (app) => {
     app.use("/AlmacenadoraG1/vlm/estadisticas", estadisticasRoutes);
     app.use("/AlmacendoraG1/v1/products", productsRoutes);
     app.use("/AlmacendoraG1/v1/add-categories ", categoriesRoutes);
+    app.use("/AlmacenadoraG1/vlm/movements", movimientosRoutes);
 };
 
 const conectarDB = async () => {

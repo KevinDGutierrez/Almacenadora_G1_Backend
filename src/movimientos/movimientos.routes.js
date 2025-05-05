@@ -1,14 +1,13 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import validarJWT from "../middlewares/validar-jwt.js";
-import { validarCampos } from "../middlewares/validar-campos.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
 
 import {
   registrarEntrada,
   registrarSalida,
   obtenerHistorial,
   generarInformeMovimientos,
-} from "../controllers/movimientos.controller.js";
+} from "../movimientos/movimientos.controller.js";
 
 const router = Router();
 
@@ -19,7 +18,6 @@ router.post(
     check("producto").notEmpty().isMongoId(),
     check("cantidad").notEmpty().isInt({ gt: 0 }),
     check("empleado").notEmpty().isMongoId(),
-    validarCampos(),
   ],
   registrarEntrada
 );

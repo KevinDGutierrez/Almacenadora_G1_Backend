@@ -31,7 +31,7 @@ const MovimientoSchema = new Schema({
   },
   producto: {
     type: Schema.Types.ObjectId,
-    ref: 'Producto',
+    ref: 'Product',
     required: true
   }
 }, { timestamps: true });
