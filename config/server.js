@@ -13,6 +13,7 @@ import { createAdmin } from '../src/users/user.controller.js';
 
 import informesRoutes from '../src/inventory/informe.routes.js';
 import estadisticasRoutes from '../src/estadistic/estadistic.routes.js';
+import movimientosRoutes from '../src/movimientos/movimientos.routes.js'
 
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
@@ -28,6 +29,7 @@ const routes = (app) => {
     app.use("/AlmacendoraG1/vlm/suppliers", supplierRoutes);
     app.use("/AlmacenadoraG1/vlm/inventory", informesRoutes);
     app.use("/AlmacenadoraG1/vlm/estadisticas", estadisticasRoutes);
+    app.use("/AlmacenadoraG1/vlm/movements", movimientosRoutes);
 };
 
 const conectarDB = async () => {

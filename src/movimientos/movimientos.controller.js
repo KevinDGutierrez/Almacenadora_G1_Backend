@@ -1,4 +1,4 @@
-import Movimiento from '../models/Movimiento.js';
+import Movimiento from '../movimientos/movimientos.model.js';
 
 export const registrarEntrada = async (req, res) => {
   try {
