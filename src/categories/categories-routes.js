@@ -6,7 +6,7 @@ import {
     updateCategorie,
     deleteCategorie} from "./categories-controller.js"
 import { validarCampos } from "../middlewares/validar-campos.js";
-import { existeUsuarioById } from "../helpers/db-validator.js";
+import { existeUserById } from "../helpers/db-validator.js";
 
 
 const router = Router();
@@ -25,7 +25,7 @@ router.get(
     "/findUser/:id",
     [
         check("id", "No es un ID válido").isMongoId(),
-        check("id").custom(existeUsuarioById),
+        check("id").custom(existeUserById),
         validarCampos
     ],
     getCategorieById
@@ -35,7 +35,7 @@ router.put(
     "/:id",
     [
         check("id", "No es un ID valido").isMongoId(),
-        check("id").custom(existeUsuarioById),
+        check("id").custom(existeUserById),
         validarCampos
 
     ],

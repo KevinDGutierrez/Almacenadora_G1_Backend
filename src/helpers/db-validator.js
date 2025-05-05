@@ -2,6 +2,7 @@ import User from '../users/user.model.js'
 import Client from '../client/client.model.js'
 import Supplier from '../suppliers/supplier.model.js'
 import Product from '../product/product-model.js'
+import Categories from '../categories/categories-model.js'
 
 export const clientExists = async (name = '') => {
     const clientExists = await Client.findOne({ name });
@@ -51,4 +52,12 @@ export const productExists = async (id = '') => {
     if (!productExists) {
         throw new Error(`El ID ${ id } no es un usuario válido`);
     }
-}
+};
+
+export const existeProductById = async (uid = "") => {
+    const existeProduct = await Product.findById(uid);
+    
+    if (!existeProduct) {
+        throw new Error(`The product with id ${uid} does not exist in the database`);
+    }
+};

@@ -225,3 +225,34 @@ export const verificarVencimientos = (product, diasAntes) => {
         console.log("No hay productos próximos a vencer.");
     }
 };
+
+export const getProductById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const product = await Product.findById(id);
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                msg: "Product not found"
+            });
+        }
+
+        const isLowStock = product.stock < product.minimumStock;
+
+        return res.json({
+            success: true,
+            product,
+            lowStockWarning: isLowStock,
+            message: isLowStock ? "  Low stock, consider replenishing." : "Stock level is sufficient."
+        });
+
+    } catch (error) {
+        console.error("Error getting product", error);
+        return res.status(500).json({
+            success: false,
+            msg: "Server error",
+            error: error.message
+        });
+    }
+};

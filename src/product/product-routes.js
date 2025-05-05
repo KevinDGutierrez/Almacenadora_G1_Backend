@@ -7,7 +7,8 @@ import {
     getSearchProductsByName,
     deleteProduct,
     getStockProducts,
-    verificarVencimientos 
+    verificarVencimientos,
+    getProductById
     } from "./product-controller.js"
 import {validarCampos} from "../middlewares/validar-campos.js"
 import { existeProductById } from "../helpers/db-validator.js";

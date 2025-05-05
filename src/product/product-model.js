@@ -51,6 +51,15 @@ const ProductSchema = Schema(
         fechaDeVencimiento:{
             type:Number,
             required: true
+        },
+        fechaDeEntrada:{
+            type:Number,
+            required: true
+        },
+        precioUnitario:{
+            type:Number,
+            required: true,
+            maxLength: [100, "Name can't exceed 100 characters"]
         }
         
     },

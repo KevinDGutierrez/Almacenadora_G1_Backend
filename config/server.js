@@ -5,14 +5,15 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { dbConnection } from './mongo.js';
+import { createAdmin } from '../src/users/user.controller.js';
 
 import userRoutes from '../src/users/user.routes.js';
 import clientRoutes from '../src/client/client.routes.js';
 import supplierRoutes from '../src/suppliers/supplier.routes.js';
-import { createAdmin } from '../src/users/user.controller.js';
-
 import informesRoutes from '../src/inventory/informe.routes.js';
 import estadisticasRoutes from '../src/estadistic/estadistic.routes.js';
+import productsRoutes from '../src/product/product-routes.js'
+import categoriesRoutes from '../src/categories/categories-routes.js'
 
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
@@ -28,6 +29,8 @@ const routes = (app) => {
     app.use("/AlmacendoraG1/vlm/suppliers", supplierRoutes);
     app.use("/AlmacenadoraG1/vlm/inventory", informesRoutes);
     app.use("/AlmacenadoraG1/vlm/estadisticas", estadisticasRoutes);
+    app.use("/AlmacendoraG1/v1/products", productsRoutes);
+    app.use("/AlmacendoraG1/v1/add-categories ", categoriesRoutes);
 };
 
 const conectarDB = async () => {
