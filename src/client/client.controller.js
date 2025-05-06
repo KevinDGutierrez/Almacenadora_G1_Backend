@@ -26,6 +26,20 @@ export const getClients = async (req, res) => {
     }
 };
 
+export const getClientById = async (req, res) => {
+    const { id } = req.params; // Esto extrae el ID de la URL
+    try {
+      const client = await Client.findById(id);
+      if (!client) {
+        return res.status(404).json({ message: "Cliente no encontrado" });
+      }
+      res.json(client); // Retorna los datos del cliente
+    } catch (error) {
+      console.error("Error al obtener cliente por ID", error);
+      res.status(500).json({ message: "Error al obtener cliente", error });
+    }
+  };
+
 export const updateClient = async (req, res) => {
     try {
         const { id } = req.params;

@@ -2,7 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 import { validarJWT } from "../middlewares/validar-jwt.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
-import { createClient, getClients, updateClient, deleteClient } from './client.controller.js'
+import { createClient, getClients, updateClient, deleteClient, getClientById } from './client.controller.js'
 
 const router = Router();
 
@@ -13,6 +13,10 @@ router.post(
 
 router.get(
     '/', getClients
+);
+
+router.get(
+    '/:id', getClientById
 );
 
 router.put(
