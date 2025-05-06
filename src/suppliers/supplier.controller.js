@@ -16,28 +16,16 @@ export const createSupplier = async (req, res) => {
   
       await supplier.save();
   
-      return res.status(201).json({
-        success: true,
-        msg: "Proveedor creado correctamente",
-        supplier,
-      });
+      return res.status(201).json({ success: true, msg: "Proveedor creado correctamente", supplier, });
   
     } catch (error) {
-      console.error("🔥 Error en createSupplier:", error);
+      console.error("Error en createSupplier:", error);
   
       if (error.code === 11000 && error.keyPattern?.email) {
-        return res.status(400).json({
-          success: false,
-          msg: "El correo electrónico ya existe",
-        });
+        return res.status(400).json({ success: false, msg: "El correo electrónico ya existe" });
       }
   
-      return res.status(500).json({
-        success: false,
-        msg: "Error al crear el proveedor",
-        error: error.message,
-        detalle: error, 
-      });
+      return res.status(500).json({ success: false, msg: "Error al crear el proveedor", error: error.message, detalle: error, });
     }
   };
   
@@ -57,31 +45,18 @@ export const getSupplierById = async (req, res) => {
       const { id } = req.params;
   
       if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({
-          success: false,
-          msg: "ID inválido",
-        });
+        return res.status(400).json({ success: false, msg: "ID inválido", });
       }
   
       const supplier = await Supplier.findById(id);
       if (!supplier) {
-        return res.status(404).json({
-          success: false,
-          msg: "Proveedor no encontrado",
-        });
+        return res.status(404).json({ success: false, msg: "Proveedor no encontrado", });
       }
   
-      return res.status(200).json({
-        success: true,
-        supplier,
-      });
+      return res.status(200).json({ success: true, supplier });
     } catch (error) {
       console.error("Error en getSupplierById:", error);
-      return res.status(500).json({
-        success: false,
-        msg: "Error al obtener el proveedor",
-        error: error.message,
-      });
+      return res.status(500).json({ success: false, msg: "Error al obtener el proveedor", error: error.message });
     }
   };
 
