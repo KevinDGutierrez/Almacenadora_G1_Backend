@@ -86,3 +86,13 @@ export const checkRequiredData = (username = '', email = '', password = '') => {
         throw new Error('Username or email and password are required');
     }
 };
+
+export const noActualizarAdmin = async (id) => {
+ 
+    const user = await User.findById(id);
+   
+    if (user.username === "administradorweb" || user.username === "administradorhotel") {
+        throw new Error('ADMINISTRATOR NOT UPDATING OR DELETE');
+    }
+}
+ 

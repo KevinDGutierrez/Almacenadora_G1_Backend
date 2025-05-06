@@ -31,37 +31,23 @@ router.post(
   login
 );
 
-router.get('/', getUsers);
+router.get('/list', getUsers);
 
 router.get(
-  '/:id',
-  [
-    check('id', 'Invalid ID').not().isEmpty(),
-    check('id').custom(existeUserById),
-    validarCampos
-  ],
+  '/search',
+  validarJWT,
   getUserById
 );
 
 router.put(
-  '/:id',
-  [
-    validarJWT,
-    check('id', 'No es un ID válido').isMongoId(),
-    check('id').custom(existeUserById),
-    validarCampos
-  ],
+  '/update',
+  validarJWT,
   updateUser
 );
 
 router.delete(
-  '/:id',
-  [
-    validarJWT,
-    check('id', 'Invalid ID').not().isEmpty(),
-    check('id').custom(existeUserById),
-    validarCampos
-  ],
+  '/delete',
+  validarJWT,
   deleteUser
 );
 

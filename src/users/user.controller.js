@@ -12,7 +12,8 @@ import {
   checkUsernameLower,
   getUserByIdvalidation,
   checkCredentials,
-  checkRequiredData
+  checkRequiredData,
+  noActualizarAdmin
 } from "../helpers/validation-user.js";
 
 export const register = async (req, res) => {
@@ -78,14 +79,11 @@ export const login = async (req, res) => {
 
   export const updateUser = async (req, res) => {
     try {
-      const { id } = req.params;
+      const user = req.user;
       const { password, actualpassword, ...data } = req.body;
       let { username } = req.body;
   
-      const user = await getUserByIdvalidation(id);
-  
-      checkRolePermission(req.user, id);
-      checkUserStatus(user);
+      await noActualizarAdmin(user._id)
       data.password = await checkActualPassword(user, actualpassword, password);
   
       if (username) {
@@ -93,7 +91,7 @@ export const login = async (req, res) => {
         data.username = username;
       }
   
-      const UserUpdate = await User.findByIdAndUpdate(id, data, { new: true });
+      const UserUpdate = await User.findByIdAndUpdate(user._id, data, { new: true });
   
       res.status(200).json({
         success: true,
@@ -130,12 +128,8 @@ export const getUsers = async (req, res = response) => {
 
 export const getUserById = async (req, res) => {
     try {
-      const { id } = req.params;
-  
-      const user = await getUserByIdvalidation(id);  
-  
-      checkUserStatus(user); 
-  
+      const user = req.user;
+        
       res.status(200).json({
         success: true,
         user,
@@ -174,17 +168,16 @@ export const createAdmin = async () => {
 
 export const deleteUser = async (req, res) => {
     try {
-      const { id } = req.params;
+      const user = req.user;
       const { username, email, password } = req.body;
 
+      await noActualizarAdmin(user._id);
       await getUserByUsername(username.toLowerCase());
       checkRequiredData(username, email, password);
-      const user = await getUserByIdvalidation(id);
-      checkRolePermission(req.user, id);
       checkUsernameLower(user, (username || '').toLowerCase());
       await checkCredentials(user, password);
   
-      const updatedUser = await User.findByIdAndUpdate(id, { status: false }, { new: true });
+      const updatedUser = await User.findByIdAndUpdate(user._id, { status: false }, { new: true });
   
       return res.status(200).json({
         success: true,
