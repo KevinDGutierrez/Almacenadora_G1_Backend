@@ -21,10 +21,10 @@ export const supplierExists = async (name = '') => {
 };
 
 export const existeSupplierById = async (id = '') => {
-    const supplierExist = await Product.findById(id);
+    const supplierExist = await Supplier.findById(id);
 
     if (!supplierExist) {
-        throw new Error(`El producto con ID ${id} no existe`);
+        throw new Error(`El proveedor con ID ${id} no existe`);
     }
 };
 

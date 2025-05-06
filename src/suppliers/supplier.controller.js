@@ -1,4 +1,5 @@
-import Supplier from './supplier.model.js'; 
+import Supplier from './supplier.model.js';
+import mongoose from "mongoose";
 
 export const createSupplier = async (req, res) => {
     try {
@@ -11,13 +12,7 @@ export const createSupplier = async (req, res) => {
         });
       }
   
-      const supplier = new Supplier({
-        name,
-        email,
-        phone,
-        address,
-        productsSupplied,
-      });
+      const supplier = new Supplier({ name, email, phone, address, productsSupplied, });
   
       await supplier.save();
   
@@ -30,7 +25,6 @@ export const createSupplier = async (req, res) => {
     } catch (error) {
       console.error("🔥 Error en createSupplier:", error);
   
-      // Detectar duplicado de email (MongoError 11000)
       if (error.code === 11000 && error.keyPattern?.email) {
         return res.status(400).json({
           success: false,
@@ -38,12 +32,11 @@ export const createSupplier = async (req, res) => {
         });
       }
   
-      // Enviar error completo en desarrollo
       return res.status(500).json({
         success: false,
         msg: "Error al crear el proveedor",
         error: error.message,
-        detalle: error, // 🔍 Para debug real
+        detalle: error, 
       });
     }
   };
@@ -63,7 +56,6 @@ export const getSupplierById = async (req, res) => {
     try {
       const { id } = req.params;
   
-      // Validar si el ID es un ObjectId válido
       if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
           success: false,
