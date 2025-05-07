@@ -61,3 +61,19 @@ export const existeProductById = async (uid = "") => {
         throw new Error(`The product with id ${uid} does not exist in the database`);
     }
 };
+
+export const existeCategoriaById = async (id = "") => {
+    const existeCategoriaById = await Categories.findById(id);
+    
+    if (!existeCategoriaById) {
+        throw new Error(`The Category with id ${id} does not exist in the database`);
+    }
+};
+
+export const categoryExists = async (name = '') => {
+    const categoryExists = await Categories.findOne({ name });
+
+    if (categoryExists) {
+        throw new Error(`La categoría "${name}" ya existe`);
+    }
+};

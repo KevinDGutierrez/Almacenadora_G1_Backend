@@ -43,6 +43,20 @@ export const checkRolePermission = (user, idParam) => {
     }
 };
 
+export const checkPermission = (req, res, next) => {
+    const user = req.user; 
+    const idParam = req.params.id;
+
+    if (user.id !== idParam && user.role !== 'ADMINISTRATOR') {
+        return res.status(403).json({ 
+            success: false,
+            msg: 'You are not authorized to update this user'
+        });
+    }
+
+    next();
+};
+
 export const checkActualPassword = async (user, actualpassword = '', newPassword = '') => {
     if (!actualpassword) {
         throw new Error('You must provide your current password');
@@ -70,8 +84,6 @@ export const checkUsernameLower = (user, lowerUsername = '') => {
         throw new Error('Invalid username');
     }
 };
-
-
 
 export const getUserByIdvalidation = async (id = '') => {
     const user = await User.findById(id);

@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "681abe63a95c204713c5b3dd"
+  },
+  "name": "Cliente Ejemplo",
+  "email": "cliente@example.com",
+  "phone": "12345678",
+  "address": "Ciudad de Santa",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-07T01:58:59.200Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T02:01:20.072Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681abfc958596fb57e1e2a06"
+  },
+  "name": "Cliente 2",
+  "email": "clientsecond@example.com",
+  "phone": "12345678",
+  "address": "Ciudad de Guatemala",
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-07T02:04:57.033Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T02:04:57.033Z"
+  }
+}]

@@ -11,7 +11,10 @@ import {
     getProductById
     } from "./product-controller.js"
 import {validarCampos} from "../middlewares/validar-campos.js"
-import { existeProductById } from "../helpers/db-validator.js";
+import { existeCategoriaById, existeProductById } from "../helpers/db-validator.js";
+import { validarJWT } from "../middlewares/validar-jwt.js";
+import { checkPermission } from "../helpers/validation-user.js";
+import { createProductValid } from "../middlewares/validator.js";
 
 
 const router = Router();
@@ -21,21 +24,22 @@ router.get("/", getProducts)
 router.post(
     "/createProduct",
     [
-        check("name", "Name is required").not().isEmpty(),
-        check("description", "Description is required").not().isEmpty(),
-        validarCampos
+        validarJWT,
+        checkPermission,
+        createProductValid,
     ],
     createProduct
 );
 
 
 router.put(
-    "/:uid",
+    "/:id",
     [
-        check("uid","No es un ID valido").isMongoId(),
-        check("uid").custom(existeProductById),
+        validarJWT,
+        check("id","No es un ID valido").isMongoId(),
+        check("id").custom(existeProductById),
+        checkPermission,
         validarCampos
-
     ],
     updateProduct
 )
@@ -46,8 +50,10 @@ router.get(
 router.delete(
     "/:id",
     [
+        validarJWT,
         check("id", "No es un ID valido").isMongoId(),
-        //check("id").custom(existeCategoriaById),
+        check("id").custom(existeCategoriaById),
+        checkPermission,
         validarCampos
     ],
     deleteProduct

@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "7fa9c938-7f9e-489b-b99c-a1da3d9aca9b",
+		"name": "Client",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42619043"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1ODMxMTQsImV4cCI6MTc0NjU4NjcxNH0.T9RFwLQXup-1U0ev-8XKlsTXQM5izxu731Qss0lcGDI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Cliente 2\",\r\n    \"email\": \"clientsecond@example.com\",\r\n    \"phone\": \"12345678\",\r\n    \"address\": \"Ciudad de Guatemala\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/client/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"client",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Empresa XYZ\",\r\n  \"email\": \"contacto@xyz.com\",\r\n  \"phone\": \"555123456\",\r\n  \"address\": \"Av. Principal 123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/client/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"client",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Empresa XYZ\",\r\n  \"email\": \"contacto@xyz.com\",\r\n  \"phone\": \"555123456\",\r\n  \"address\": \"Av. Principal 123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/client/681abe63a95c204713c5b3dd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"client",
+						"681abe63a95c204713c5b3dd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1ODMxMTQsImV4cCI6MTc0NjU4NjcxNH0.T9RFwLQXup-1U0ev-8XKlsTXQM5izxu731Qss0lcGDI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Cliente Ejemplo\",\r\n    \"email\": \"cliente@example.com\",\r\n    \"phone\": \"12345678\",\r\n    \"address\": \"Ciudad de Santa\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/client/681abe63a95c204713c5b3dd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"client",
+						"681abe63a95c204713c5b3dd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1ODMxMTQsImV4cCI6MTc0NjU4NjcxNH0.T9RFwLQXup-1U0ev-8XKlsTXQM5izxu731Qss0lcGDI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/client/681abfc958596fb57e1e2a06",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"client",
+						"681abfc958596fb57e1e2a06"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

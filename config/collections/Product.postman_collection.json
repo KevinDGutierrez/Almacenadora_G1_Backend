@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "cd0a9fa2-c33d-4299-af00-0094c34c2130",
+		"name": "Product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42619043"
+	},
+	"item": [
+		{
+			"name": "Post Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1OTY2NDcsImV4cCI6MTc0NjYwMDI0N30.e4OgpQkxa1MZBLAkISaUjp5cJuSxkB0O-PvWIFmDX2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Producto\",\r\n    \"description\": \"Descripción breve del producto\",\r\n    \"category\": \"681af612d695c7142322af5a\",\r\n    \"stock\": 100,\r\n    \"supplier\": \"6817350c3cb730853a81fcfb\",\r\n    \"fechaDeVencimiento\": 1735689600,\r\n    \"fechaDeEntrada\": 1722307200,\r\n    \"precioUnitario\": 99.99\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/products/createProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"products",
+						"createProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Product",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1OTY2NDcsImV4cCI6MTc0NjYwMDI0N30.e4OgpQkxa1MZBLAkISaUjp5cJuSxkB0O-PvWIFmDX2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ByName",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1OTY2NDcsImV4cCI6MTc0NjYwMDI0N30.e4OgpQkxa1MZBLAkISaUjp5cJuSxkB0O-PvWIFmDX2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/products/productsName?name=Producto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"products",
+						"productsName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Producto"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OutStock",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1OTY2NDcsImV4cCI6MTc0NjYwMDI0N30.e4OgpQkxa1MZBLAkISaUjp5cJuSxkB0O-PvWIFmDX2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/products/productsOutOfStock",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"products",
+						"productsOutOfStock"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request Copy 4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY1OTY2NDcsImV4cCI6MTc0NjYwMDI0N30.e4OgpQkxa1MZBLAkISaUjp5cJuSxkB0O-PvWIFmDX2g",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/products/vencimientos/1722307200",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"products",
+						"vencimientos",
+						"1722307200"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY2MDA3NjksImV4cCI6MTc0NjYwNDM2OX0.BaiMZxKD9tTW0jRhhAPpr_l_q8iQn8uTB_9T_2BqMo0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Producto Actualizado\",\r\n    \"description\": \"Nueva descripción\",\r\n    \"stock\": 50,\r\n    \"precioUnitario\": 79.99\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/products/681af3482a38ee1ba65b37ad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"products",
+						"681af3482a38ee1ba65b37ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODE5MmI5MGJlM2ZjYWM0ZTkyZjUxNDgiLCJpYXQiOjE3NDY2MDA3NjksImV4cCI6MTc0NjYwNDM2OX0.BaiMZxKD9tTW0jRhhAPpr_l_q8iQn8uTB_9T_2BqMo0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Producto Actualizado\",\r\n    \"description\": \"Nueva descripción\",\r\n    \"stock\": 50,\r\n    \"precioUnitario\": 79.99\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/products/681af3482a38ee1ba65b37ad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"products",
+						"681af3482a38ee1ba65b37ad"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

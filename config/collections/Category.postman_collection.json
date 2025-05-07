@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "fed8f1ee-168b-45c1-8f59-28ef216f06a2",
+		"name": "Category",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42619043"
+	},
+	"item": [
+		{
+			"name": "post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhMGZmYjFiOGEyYzUwYzEyZTU4ZjYiLCJpYXQiOjE3NDY1NDkzODAsImV4cCI6MTc0NjU1Mjk4MH0.u6BGZOX8qkAGMrHiBmbwHJOdrPvW1NF0LxEgLugOIrk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Minerales\",\r\n  \"description\": \"Minerales de distintas formas\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/add-categories/createCategory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"add-categories",
+						"createCategory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhMGZmYjFiOGEyYzUwYzEyZTU4ZjYiLCJpYXQiOjE3NDY1NDkzODAsImV4cCI6MTc0NjU1Mjk4MH0.u6BGZOX8qkAGMrHiBmbwHJOdrPvW1NF0LxEgLugOIrk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/add-categories/findUser/681a3d46bb8ec72d12beb0c6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"add-categories",
+						"findUser",
+						"681a3d46bb8ec72d12beb0c6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhMGZmYjFiOGEyYzUwYzEyZTU4ZjYiLCJpYXQiOjE3NDY1NDkzODAsImV4cCI6MTc0NjU1Mjk4MH0.u6BGZOX8qkAGMrHiBmbwHJOdrPvW1NF0LxEgLugOIrk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Minerales\",\r\n  \"description\": \"Minerales de distintas formas y materias\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/add-categories/681a3d46bb8ec72d12beb0c6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"add-categories",
+						"681a3d46bb8ec72d12beb0c6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODFhMGZmYjFiOGEyYzUwYzEyZTU4ZjYiLCJpYXQiOjE3NDY1NDkzODAsImV4cCI6MTc0NjU1Mjk4MH0.u6BGZOX8qkAGMrHiBmbwHJOdrPvW1NF0LxEgLugOIrk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/AlmacenadoraG1/vlm/add-categories/681a33d02b6b174cb18ad436",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"add-categories",
+						"681a33d02b6b174cb18ad436"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

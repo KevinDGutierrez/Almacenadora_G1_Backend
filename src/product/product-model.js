@@ -17,7 +17,7 @@ const ProductSchema = Schema(
 
         category: {
             type: Schema.Types.ObjectId,
-            ref: 'Categoria',
+            ref: 'Categories',
             required: [true, "Category is required"]
         },
         stock: {
@@ -27,7 +27,7 @@ const ProductSchema = Schema(
         },
         supplier: {
             type: Schema.Types.ObjectId,
-            ref: 'Proveedor',
+            ref: 'Supplier',
             required: [true, "Supplier is required"]
         },
         status: {

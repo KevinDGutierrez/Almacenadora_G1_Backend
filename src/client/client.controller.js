@@ -1,5 +1,6 @@
 import { response } from "express";
 import Client from "./client.model.js";
+import mongoose from 'mongoose';
 
 export const createClient = async (req, res = response) => {
     try {       
@@ -27,13 +28,13 @@ export const getClients = async (req, res) => {
 };
 
 export const getClientById = async (req, res) => {
-    const { id } = req.params; // Esto extrae el ID de la URL
+    const { id } = req.params; 
     try {
       const client = await Client.findById(id);
       if (!client) {
         return res.status(404).json({ message: "Cliente no encontrado" });
       }
-      res.json(client); // Retorna los datos del cliente
+      res.json(client); 
     } catch (error) {
       console.error("Error al obtener cliente por ID", error);
       res.status(500).json({ message: "Error al obtener cliente", error });
@@ -59,8 +60,16 @@ export const updateClient = async (req, res) => {
 export const deleteClient = async (req, res) => {
     try {
         const { id } = req.params;
-        await Client.findByIdAndUpdate(id, { status: false });
-        return res.status(200).json({ success: true, msg: "Producto deshabilitado correctamente" });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ success: false, msg: 'ID no válido' });
+        }
+
+        const client = await Client.findByIdAndUpdate(id, { status: false });
+        if (!client) {
+            return res.status(404).json({ success: false, msg: 'Cliente no encontrado' });
+        }
+
+        return res.status(200).json({ success: true, msg: 'Cliente deshabilitado correctamente' });
     } catch (error) {
         console.error("Error en deleteClient:", error);
         return res.status(500).json({ message: 'Error al eliminar el cliente', error });

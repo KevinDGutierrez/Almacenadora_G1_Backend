@@ -27,7 +27,7 @@ export const createSupplier = async (req, res) => {
   
       return res.status(500).json({ success: false, msg: "Error al crear el proveedor", error: error.message, detalle: error, });
     }
-  };
+};
   
 
 export const getSuppliers = async (req, res) => {

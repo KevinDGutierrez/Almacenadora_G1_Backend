@@ -6,72 +6,52 @@ import { hash, verify } from "argon2";
 export const createProduct = async (req, res) => {
     try {
         const data = req.body;
+
         const productExistente = await Product.findOne({ name: data.name });
         if (productExistente) {
             return res.status(400).json({
                 success: false,
-                message: 'product already exists'
+                message: 'Product already exists'
             });
         }
-        /* const user = await User.findOne({ username: data.username });
-         if (!user) {
-           return res.status(404).json({
-               success: false,
-           message: 'user not found'
-           });
-        }*/ 
-        const product = new Product({
-            ...data,
-          /*  user: user._id */
-        });
+
+        const product = new Product({ ...data });
+
         await product.save();
-        res.status(200).json({
-            success: true,
-            product
-        });
+
+        return res.status(201).json({ success: true, product });
+
     } catch (error) {
+        console.error('Error creating product', error);
         res.status(500).json({
             success: false,
             message: 'Error creating product',
-            error
+            error: error.message
         });
     }
 };
 
-
-
-
-
-export const getProducts = async (req = request, res = response) => {
+export const getProducts = async (req, res) => {
     try {
         const { limite = 10, desde = 0 } = req.query;
-        const query = { estado: true };
+        const query = { status: true };
 
-        const [total, products] = await Promise.all([
+        const [total, productsRaw] = await Promise.all([
             Product.countDocuments(query),
             Product.find(query)
+                .populate('category', 'name')
+                .populate('supplier', 'name')
                 .skip(Number(desde))
                 .limit(Number(limite))
-        ])
-        res.status(200).json({
-            succes: true,
-            total,
-            products
+        ]);        
 
-
-        })
+        return res.status(200).json({ success: true, total, products: productsRaw });
 
     } catch (error) {
-        res.status(500).json({
-            succes: false,
-            msg: 'Error getting products',
-            error
-        })
+        console.error("Error getting products", error);
+        return res.status(500).json({ success: false, message: 'Error getting products', error: error.message });
     }
-
-}
-
-
+};
 
 export const getSearchProductsByName = async (req, res) => {
     try {
@@ -131,7 +111,7 @@ export const updateProduct = async (req, res) => {
         return res.status(200).json({
             succes: true,
             msg: "successfully updated product",
-            user,
+            product,
         });
 
     } catch (error) {
@@ -169,7 +149,7 @@ export const deleteProduct = async (req, res) => {
         return res.status(200).json({
             success: true,
             msg: "product disposed correctly",
-            deletedUser: user
+            product
         });
 
     } catch (error) {

@@ -4,7 +4,7 @@ import { validarJWT } from "../middlewares/validar-jwt.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { createSupplier, getSuppliers, getSupplierById , updateSupplier, deleteSupplier } from "./supplier.controller.js"
 import { existeSupplierById } from "../helpers/db-validator.js";
-import { checkRolePermission } from "../helpers/validation-user.js";
+import { checkRolePermission, checkPermission } from "../helpers/validation-user.js";
 
 const router = Router();
 
@@ -12,7 +12,7 @@ router.post(
     '/', 
     [
         validarJWT, 
-        checkRolePermission
+        checkPermission
     ], 
     createSupplier
 );
@@ -38,7 +38,7 @@ router.put(
         validarJWT,
         check("id", "No es un ID valido").isMongoId(),
         check("id").custom(existeSupplierById),
-        checkRolePermission,
+        checkPermission,
         validarCampos
     ],
     updateSupplier
@@ -48,7 +48,7 @@ router.delete(
     '/:id', 
     [
         validarJWT,
-        checkRolePermission,
+        checkPermission,
         validarCampos
     ],
     deleteSupplier

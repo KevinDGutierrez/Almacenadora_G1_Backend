@@ -1,6 +1,6 @@
 import { body, check } from "express-validator";
 import { validarCampos } from "./validar-campos.js";
-import { existenteEmail, productExists } from "../helpers/db-validator.js";
+import { existeCategoriaById, existenteEmail, existeSupplierById, productExists } from "../helpers/db-validator.js";
 
 export const registerValidator = [
     body("name", "The name is required").not().isEmpty(),
@@ -19,10 +19,22 @@ export const loginValidator = [
 ];
 
 export const createClient = [
-check("name", "El nombre es obligatorio").not().isEmpty().custom(productExists),
-check("description", "La descripción es obligatoria").not().isEmpty(),
-check("price", "El precio debe ser un número").isNumeric(),
-check("stock", "El stock debe ser un número").isNumeric(),
-check("category", "La categoría es obligatoria").not().isEmpty(),
-validarCampos
+    check("name", "El nombre es obligatorio").not().isEmpty().custom(productExists),
+    check("description", "La descripción es obligatoria").not().isEmpty(),
+    check("price", "El precio debe ser un número").isNumeric(),
+    check("stock", "El stock debe ser un número").isNumeric(),
+    check("category", "La categoría es obligatoria").not().isEmpty(),
+    validarCampos
 ];
+
+export const createProductValid = [
+    check("name", "Name is required").not().isEmpty(),
+    check("description", "Description is required").not().isEmpty(),
+    check("category", "Category ID is required").not().isEmpty(),
+    check("category").isMongoId(),
+    check("category").custom(existeCategoriaById),
+    check("supplier", "Supplier ID is required").not().isEmpty(),
+    check("supplier").isMongoId(),
+    check("supplier").custom(existeSupplierById),
+    validarCampos
+]

@@ -24,7 +24,6 @@ export const createCategories = async (req, res = response) => {
     }
 };
 
-
 export const getCategoria = async (req, res) => {
     try {
         const categories = await Categorie.find();
@@ -35,13 +34,13 @@ export const getCategoria = async (req, res) => {
             });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             categories
         });
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             msg: 'Error al obtener categorías',
             error: error.message
@@ -49,11 +48,10 @@ export const getCategoria = async (req, res) => {
     }
 };
 
-
 export const getCategorieById = async (req, res) => {
     try {
-        const { cid } = req.params;
-        const categorie = await Categorie.findById(cid);
+        const { id } = req.params;
+        const categorie = await Categorie.findById(id);
 
         if (!categorie) {
             return res.status(404).json({
@@ -62,13 +60,13 @@ export const getCategorieById = async (req, res) => {
             });
         }
 
-        res.status(200).json({
+        return res.status(200).json({
             succes: true,
             categorie
         });
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             succes: false,
             msg: 'Error al obtener categoría',
             error
@@ -87,14 +85,14 @@ export const updateCategorie = async (req, res = response) => {
         }
 
         const categorie = await Categorie.findByIdAndUpdate(id, data, { new: true });
-        res.status(200).json({
+        return res.status(200).json({
             succes: true,
             msg: 'Updated categorie',
             categorie
         });
 
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             succes: false,
             msg: 'Error updating categorie',
             error
@@ -104,14 +102,13 @@ export const updateCategorie = async (req, res = response) => {
 
 export const deleteCategorie = async (req, res) => {
     try {
-        const { cid } = req.params;
-        const categorie = await Categorie.findByIdAndUpdate(cid, { status: false }, { new: true });
+        const { id } = req.params;
+        const categorie = await Categorie.findByIdAndUpdate(id, { status: false }, { new: true });
         console.log(categorie)
         const defaultCategorie = await Categorie.findOne({ name: 'defecto' });
 
-        
 
-        const product = await Product.find({ categorie: cid });
+        const product = await Product.find({ categorie: id });
 
         await Promise.all(
             product.map(async (prdct) => {
@@ -135,3 +132,22 @@ export const deleteCategorie = async (req, res) => {
     }
 }
 
+export const createDefaultCategory = async () => {
+    try {
+      const existingCategory = await Categorie.findOne({ name: "General" });
+  
+      if (!existingCategory) {
+        const newCategory = new Categorie({
+          name: "General",
+          description: "Categoría predeterminada",
+          status: true,
+        });
+        await newCategory.save();
+        console.log("--> Categoría por defecto creada correctamente.");
+      }  else {
+        console.log("Categories already exists");
+      }
+    } catch (error) {
+      console.error("--> Error al crear la categoría por defecto:", error);
+    }
+  };

@@ -1,0 +1,83 @@
+[{
+  "_id": {
+    "$oid": "6817350c3cb730853a81fcfb"
+  },
+  "name": "Javier Santo",
+  "email": "javi@gmail.com",
+  "phone": "50236985214",
+  "address": "Zona 1, Ciudad de Guatemala Zacapa",
+  "productsSupplied": [
+    "melon",
+    "papaya"
+  ],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-04T09:36:12.193Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-06T07:01:23.834Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681738f80a303a9f29dd2109"
+  },
+  "name": "Diego",
+  "email": "LuzTor9@gmai.com",
+  "phone": "87654321",
+  "address": "Zona 1, Ciudad de ",
+  "productsSupplied": [
+    "melon",
+    "papaya",
+    "sandía"
+  ],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-04T09:52:56.567Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-04T09:52:56.567Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681946bff5573172b29129f9"
+  },
+  "name": "Pedro Javier Hernandez",
+  "email": "jonathanciav9@gmail.com",
+  "phone": "50298765432",
+  "address": "Zona 1, Ciudad de Guatemala",
+  "productsSupplied": [
+    "melon",
+    "papaya",
+    "pera"
+  ],
+  "status": false,
+  "createdAt": {
+    "$date": "2025-05-05T23:16:15.159Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-05T23:16:21.136Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "68196d568290606a9f08fc7e"
+  },
+  "name": "PedroJ",
+  "email": "proveedorxyz@example.com",
+  "phone": "12345678",
+  "address": "Zona 1, Ciudad de Guatemala Petapa",
+  "productsSupplied": [
+    "melon",
+    "sandía",
+    "papaya"
+  ],
+  "status": true,
+  "createdAt": {
+    "$date": "2025-05-06T02:00:54.014Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-06T02:01:01.167Z"
+  }
+}]

@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "681af3482a38ee1ba65b37ad"
+  },
+  "name": "Producto Actualizado",
+  "description": "Nueva descripción",
+  "category": {
+    "$oid": "665f91f2b3a00e172abc1234"
+  },
+  "stock": 50,
+  "supplier": {
+    "$oid": "665f91f2b3a00e172abc5678"
+  },
+  "status": true,
+  "image": null,
+  "fechaDeVencimiento": 1735689600,
+  "fechaDeEntrada": 1722307200,
+  "precioUnitario": 79.99,
+  "createdAt": {
+    "$date": "2025-05-07T05:44:40.104Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T06:52:59.038Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "681afb9ba0b6e7977529bb62"
+  },
+  "name": "Producto",
+  "description": "Descripción breve del producto",
+  "category": {
+    "$oid": "681af612d695c7142322af5a"
+  },
+  "stock": 100,
+  "supplier": {
+    "$oid": "6817350c3cb730853a81fcfb"
+  },
+  "status": true,
+  "image": null,
+  "fechaDeVencimiento": 1735689600,
+  "fechaDeEntrada": 1722307200,
+  "precioUnitario": 99.99,
+  "createdAt": {
+    "$date": "2025-05-07T06:20:11.051Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T06:20:11.051Z"
+  }
+}]

@@ -15,6 +15,7 @@ import estadisticasRoutes from '../src/estadistic/estadistic.routes.js';
 import productsRoutes from '../src/product/product-routes.js';
 import categoriesRoutes from '../src/categories/categories-routes.js'
 import movimientosRoutes from '../src/movimientos/movimientos.routes.js'
+import { createDefaultCategory } from '../src/categories/categories-controller.js';
 
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
@@ -40,6 +41,7 @@ const conectarDB = async () => {
         await dbConnection();
         console.log('Database connection successful!!');
         await createAdmin();
+        await createDefaultCategory();
     } catch (error) {
         console.error('Error connecting to database:', error);
         process.exit(1);
@@ -48,7 +50,7 @@ const conectarDB = async () => {
 
 export const initServer = async () => {
     const app = express();
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || 8080;
 
     try {
         middlewares(app);
