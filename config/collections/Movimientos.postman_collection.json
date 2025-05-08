@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "2ee408d6-073f-42df-8a6c-180f96be9c8e",
+		"name": "Movimientos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42635842"
+	},
+	"item": [
+		{
+			"name": "registrarMovimiento",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEyYmY5NTI3NjI0YzlhODc3OGU5ZjQiLCJpYXQiOjE3NDY2NTczMTcsImV4cCI6MTc0NjY2MDkxN30.lewOAWJ_hk9NTzR6xki7sFr75Hg4wgXHXE5Xr45h-ag",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tipo\": \"entrada\",\r\n  \"producto\": \"681af3482a38ee1ba65b37ad\",\r\n  \"cantidad\": 10,\r\n  \"empleado\": \"68111c979f10a547c939c840\",\r\n  \"motivo\": \"Reposición de stock\",\r\n  \"destino\": \"Almacén principal\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlmacenadoraG1/vlm/movements/registrarMovimiento",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"movements",
+						"registrarMovimiento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "obtenerHistorial",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEyYmY5NTI3NjI0YzlhODc3OGU5ZjQiLCJpYXQiOjE3NDY2NTczMTcsImV4cCI6MTc0NjY2MDkxN30.lewOAWJ_hk9NTzR6xki7sFr75Hg4wgXHXE5Xr45h-ag",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tipo\": \"entrada\",\r\n  \"producto\": \"681af3482a38ee1ba65b37ad\",\r\n  \"cantidad\": 10,\r\n  \"empleado\": \"68111c979f10a547c939c840\",\r\n  \"motivo\": \"Reposición de stock\",\r\n  \"destino\": \"Almacén principal\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlmacenadoraG1/vlm/movements/681af3482a38ee1ba65b37ad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"movements",
+						"681af3482a38ee1ba65b37ad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "informeMovimientos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODEyYmY5NTI3NjI0YzlhODc3OGU5ZjQiLCJpYXQiOjE3NDY2NTczMTcsImV4cCI6MTc0NjY2MDkxN30.lewOAWJ_hk9NTzR6xki7sFr75Hg4wgXHXE5Xr45h-ag",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fechaInicio\": \"2025-05-01\",\r\n  \"fechaFin\": \"2025-05-08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/AlmacenadoraG1/vlm/movements/informeMovimientos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"AlmacenadoraG1",
+						"vlm",
+						"movements",
+						"informeMovimientos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

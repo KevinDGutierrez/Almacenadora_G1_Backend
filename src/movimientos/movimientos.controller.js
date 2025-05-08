@@ -1,42 +1,47 @@
 import Movimiento from '../movimientos/movimientos.model.js';
+import mongoose from 'mongoose';
 
-export const registrarEntrada = async (req, res) => {
+export const registrarMovimiento = async (req, res) => {
   try {
+    const { tipo } = req.body;
     const { producto, cantidad, empleado, motivo, destino } = req.body;
 
+    if (!['entrada', 'salida'].includes(tipo)) {
+      return res.status(400).json({ message: 'Tipo de movimiento no válido. Debe ser "entrada" o "salida".' });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(producto)) {
+      return res.status(400).json({ message: 'ID de producto no válido.' });
+    }
+    if (!mongoose.Types.ObjectId.isValid(empleado)) {
+      return res.status(400).json({ message: 'ID de empleado no válido.' });
+    }
+
     const nuevoMovimiento = new Movimiento({
-      tipo: 'entrada',
+      tipo,
+      producto,
       cantidad,
       empleado,
       motivo,
-      destino,
-      producto
+      destino
     });
 
     await nuevoMovimiento.save();
-    res.status(201).json({ message: 'Entrada registrada', data: nuevoMovimiento });
-  } catch (error) {
-    res.status(500).json({ message: 'Error al registrar entrada', error });
-  }
-};
 
-export const registrarSalida = async (req, res) => {
-  try {
-    const { producto, cantidad, empleado, motivo, destino } = req.body;
+    const movimientoGuardado = await Movimiento.findById(nuevoMovimiento._id)
+      .populate('producto')
+      .populate('empleado');
 
-    const nuevoMovimiento = new Movimiento({
-      tipo: 'salida',
-      cantidad,
-      empleado,
-      motivo,
-      destino,
-      producto
+    res.status(201).json({
+      message: `Movimiento de ${tipo} registrado exitosamente.`,
+      data: movimientoGuardado
     });
 
-    await nuevoMovimiento.save();
-    res.status(201).json({ message: 'Salida registrada', data: nuevoMovimiento });
   } catch (error) {
-    res.status(500).json({ message: 'Error al registrar salida', error });
+    res.status(500).json({
+      message: `Error al registrar movimiento de ${req.params.tipo}.`,
+      error: error.message
+    });
   }
 };
 
@@ -45,7 +50,7 @@ export const obtenerHistorial = async (req, res) => {
     const { producto } = req.params;
 
     const historial = await Movimiento.find({ producto })
-      .populate('empleado', 'name surname email') // opcional: datos del usuario
+      .populate('empleado', 'name surname email')
       .sort({ fecha: -1 });
 
     if (!historial.length) {
@@ -60,7 +65,7 @@ export const obtenerHistorial = async (req, res) => {
 
 export const generarInformeMovimientos = async (req, res) => {
   try {
-    const { fechaInicio, fechaFin } = req.query;
+    const { fechaInicio, fechaFin } = req.body;
 
     const inicio = new Date(fechaInicio);
     const fin = new Date(fechaFin);

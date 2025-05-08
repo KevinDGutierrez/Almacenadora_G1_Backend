@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "681be1a6dfaf4d3fa889bafe"
+  },
+  "tipo": "entrada",
+  "cantidad": 10,
+  "empleado": {
+    "$oid": "68111c979f10a547c939c840"
+  },
+  "motivo": "Reposición de stock",
+  "destino": "Almacén principal",
+  "producto": {
+    "$oid": "681af3482a38ee1ba65b37ad"
+  },
+  "fecha": {
+    "$date": "2025-05-07T22:41:42.487Z"
+  },
+  "createdAt": {
+    "$date": "2025-05-07T22:41:42.492Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T22:41:42.492Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "681be1d1dfaf4d3fa889bb04"
+  },
+  "tipo": "entrada",
+  "cantidad": 10,
+  "empleado": {
+    "$oid": "68111c979f10a547c939c840"
+  },
+  "motivo": "Reposición de stock",
+  "destino": "Almacén principal",
+  "producto": {
+    "$oid": "681af3482a38ee1ba65b37ad"
+  },
+  "fecha": {
+    "$date": "2025-05-07T22:42:25.543Z"
+  },
+  "createdAt": {
+    "$date": "2025-05-07T22:42:25.545Z"
+  },
+  "updatedAt": {
+    "$date": "2025-05-07T22:42:25.545Z"
+  },
+  "__v": 0
+}]
