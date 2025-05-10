@@ -45,7 +45,7 @@ router.put(
   updateUser
 );
 
-router.delete(
+router.put(
   '/delete',
   validarJWT,
   deleteUser

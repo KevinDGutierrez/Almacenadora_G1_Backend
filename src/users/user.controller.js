@@ -174,7 +174,7 @@ export const deleteUser = async (req, res) => {
       await noActualizarAdmin(user._id);
       await getUserByUsername(username.toLowerCase());
       checkRequiredData(username, email, password);
-      checkUsernameLower(user, (username || '').toLowerCase());
+      checkUsernameLower(user, username.toLowerCase());
       await checkCredentials(user, password);
   
       const updatedUser = await User.findByIdAndUpdate(user._id, { status: false }, { new: true });
