@@ -12,7 +12,7 @@ const router = Router();
 
 router.post(
   "/registrarMovimiento",
-  validarJWT,
+    validarJWT,
   [
     check("producto").notEmpty().isMongoId(),
     check("cantidad").notEmpty().isInt({ gt: 0 }),

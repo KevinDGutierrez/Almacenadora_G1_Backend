@@ -28,12 +28,11 @@ export const createSupplier = async (req, res) => {
       return res.status(500).json({ success: false, msg: "Error al crear el proveedor", error: error.message, detalle: error, });
     }
 };
-  
 
 export const getSuppliers = async (req, res) => {
     try {
         const suppliers = await Supplier.find({ status: true });
-        return res.status(200).json(suppliers);
+        return res.status(200).json({ success: true, suppliers });
     } catch (error) {
         console.error("Error en getSuppliers:", error);
         return res.status(500).json({ success: false, msg: "Error al obtener proveedores", error: error.message });

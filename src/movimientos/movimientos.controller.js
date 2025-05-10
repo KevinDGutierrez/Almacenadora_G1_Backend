@@ -92,8 +92,10 @@ export const generarInformeMovimientos = async (req, res) => {
   try {
     const { fechaInicio, fechaFin } = req.body;
 
-    const inicio = new Date(fechaInicio);
-    const fin = new Date(fechaFin);
+    const inicio = new Date(fechaInicio + 'T00:00:00.000Z');
+    const fin = new Date(fechaFin + 'T23:59:59.999Z');
+
+    console.log("Filtro fechas:", { desde: inicio, hasta: fin });
 
     if (isNaN(inicio) || isNaN(fin)) {
       return res.status(400).json({ message: "Fechas inválidas" });
@@ -102,52 +104,64 @@ export const generarInformeMovimientos = async (req, res) => {
     const resumen = await Movimiento.aggregate([
       {
         $match: {
-          fecha: { $gte: inicio, $lte: fin },
-        },
-      },
-      {
-        $group: {
-          _id: "$producto",
-          totalEntradas: {
-            $sum: {
-              $cond: [{ $eq: ["$tipo", "entrada"] }, "$cantidad", 0],
-            },
-          },
-          totalSalidas: {
-            $sum: {
-              $cond: [{ $eq: ["$tipo", "salida"] }, "$cantidad", 0],
-            },
-          },
-        },
+          fecha: { $gte: inicio, $lte: fin }
+        }
       },
       {
         $lookup: {
-          from: "productos",
-          localField: "_id",
-          foreignField: "_id",
-          as: "producto",
-        },
+          from: 'products',
+          localField: 'producto',
+          foreignField: '_id',
+          as: 'producto'
+        }
       },
+      { $unwind: '$producto' },
       {
-        $unwind: "$producto",
+        $lookup: {
+          from: 'users',
+          localField: 'empleado',
+          foreignField: '_id',
+          as: 'empleado'
+        }
+      },
+      { $unwind: '$empleado' },
+      {
+        $group: {
+          _id: { productoId: '$producto._id', empleadoId: '$empleado._id' },
+          nombreProducto: { $first: '$producto.name' },
+          currentStock: { $first: '$producto.stock' },
+          employeeId: { $first: '$empleado._id' },
+          totalEntradas: {
+            $sum: {
+              $cond: [{ $eq: ['$tipo', 'entrada'] }, '$cantidad', 0]
+            }
+          },
+          totalSalidas: {
+            $sum: {
+              $cond: [{ $eq: ['$tipo', 'salida'] }, '$cantidad', 0]
+            }
+          }
+        }
       },
       {
         $project: {
-          _id: 0,
-          productoId: "$_id",
-          nombreProducto: "$producto.nombre",
+          productoId: '$_id.productoId',
+          employeeId: '$_id.empleadoId',
+          nombreProducto: 1,
+          currentStock: 1,
           totalEntradas: 1,
           totalSalidas: 1,
-        },
+          _id: 0
+        }
       },
       {
-        $sort: { nombreProducto: 1 },
-      },
+        $sort: { nombreProducto: 1 }
+      }
     ]);
 
     res.json({
-      fechaInicio: inicio.toISOString(),
-      fechaFin: fin.toISOString(),
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
       resumen,
     });
   } catch (error) {

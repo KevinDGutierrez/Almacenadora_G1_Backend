@@ -64,8 +64,13 @@ export const login = async (req, res) => {
       return res.status(200).json({
         msg: "Login successful",
         userDetails: {
-          username: user.username,
           token: token,
+          name: user.name,
+          surname: user.surname,
+          username: user.username,
+          email: user.email,
+          phone: user.phone,
+          role: user.role
         },
       });
     } catch (error) {
@@ -75,37 +80,54 @@ export const login = async (req, res) => {
         error: error.message,
       });
     }
-  };
+};
 
-  export const updateUser = async (req, res) => {
-    try {
-      const user = req.user;
-      const { password, actualpassword, ...data } = req.body;
-      let { username } = req.body;
-  
-      await noActualizarAdmin(user._id)
-      data.password = await checkActualPassword(user, actualpassword, password);
-  
-      if (username) {
-        username = username.toLowerCase();
-        data.username = username;
+export const updateUser = async (req, res) => {
+  try {
+    const { name, surname, username, email, phone, actualpassword, password } = req.body;
+    const user = req.user;
+
+    await noActualizarAdmin(user._id);
+
+    const data = {
+      name: name?.trim(),
+      surname: surname?.trim(),
+      username: username?.toLowerCase().trim(),
+      email: email?.toLowerCase().trim(),
+      phone: phone?.trim(),
+    };
+
+    if (password) {
+      try {
+        const newHashedPassword = await checkActualPassword(user, actualpassword, password);
+        if (newHashedPassword) {
+          data.password = newHashedPassword;
+        }
+      } catch (error) {
+        return res.status(400).json({ msg: error.message });
       }
-  
-      const UserUpdate = await User.findByIdAndUpdate(user._id, data, { new: true });
-  
-      res.status(200).json({
-        success: true,
-        msg: "user Updated",
-        UserUpdate,
-      });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({
-        msg: "Error updating user",
-        error: error.message || error,
-      });
     }
-  };
+
+    const updatedUser = await User.findByIdAndUpdate(user._id, data, { new: true });
+
+    return res.status(200).json({
+      msg: "User updated successfully",
+      user: {
+        name: updatedUser.name,
+        surname: updatedUser.surname,
+        username: updatedUser.username,
+        email: updatedUser.email,
+        phone: updatedUser.phone,
+        role: updatedUser.role,
+      }
+    });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return res.status(500).json({
+      msg: "Internal server error",
+    });
+  }
+};
 
 export const getUsers = async (req, res = response) => {
   try {
@@ -167,29 +189,32 @@ export const createAdmin = async () => {
 };
 
 export const deleteUser = async (req, res) => {
-    try {
-      const user = req.user;
-      const { username, email, password } = req.body;
+  try {
+    const user = req.user; 
+    const { password } = req.body;
 
-      await noActualizarAdmin(user._id);
-      await getUserByUsername(username.toLowerCase());
-      checkRequiredData(username, email, password);
-      checkUsernameLower(user, username.toLowerCase());
-      await checkCredentials(user, password);
-  
-      const updatedUser = await User.findByIdAndUpdate(user._id, { status: false }, { new: true });
-  
-      return res.status(200).json({
-        success: true,
-        msg: "User deactivated successfully",
-        user: updatedUser,
-      });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({
-        success: false,
-        msg: "Error deleting user",
-        error: error.message || error,
-      });
-    }
-  };
+    await noActualizarAdmin(user._id);
+
+    checkRequiredData(user.username, user.email, password);
+    await checkCredentials(user, password);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      user._id,
+      { status: false },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      msg: "User deactivated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      msg: "Error deleting user",
+      error: error.message || error,
+    });
+  }
+};

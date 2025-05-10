@@ -50,12 +50,27 @@ export const checkPermission = (req, res, next) => {
     if (user.id !== idParam && user.role !== 'ADMINISTRATOR') {
         return res.status(403).json({ 
             success: false,
+            msg: 'You are not authorized to update o delete things'
+        });
+    }
+
+    next();
+};
+
+export const checkPermissionAdd = (req, res, next) => {
+    const user = req.user; 
+    const idParam = req.params.id;
+
+    if (user.id !== idParam && !['ADMINISTRATOR', 'EMPLOYEE'].includes(user.role)) {
+        return res.status(403).json({ 
+            success: false,
             msg: 'You are not authorized to update this user'
         });
     }
 
     next();
 };
+
 
 export const checkActualPassword = async (user, actualpassword = '', newPassword = '') => {
     if (!actualpassword) {
@@ -103,7 +118,7 @@ export const noActualizarAdmin = async (id) => {
  
     const user = await User.findById(id);
    
-    if (user.username === "administradorweb" || user.username === "administradorhotel") {
+    if (user.username === "Employee" || user.username === "administrator") {
         throw new Error('ADMINISTRATOR NOT UPDATING OR DELETE');
     }
 }

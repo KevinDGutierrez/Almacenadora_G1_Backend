@@ -4,7 +4,8 @@ import {
     createCategories,
     getCategorieById,
     updateCategorie,
-    deleteCategorie} from "./categories-controller.js"
+    deleteCategorie,
+    getCategoria} from "./categories-controller.js"
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { existeCategoriaById } from "../helpers/db-validator.js";
 import { checkPermission } from "../helpers/validation-user.js";
@@ -16,13 +17,17 @@ const router = Router();
 router.post(
     "/createCategory",
     [
-        validarJWT, 
+        validarJWT,
         check("name", "Name is required").not().isEmpty(),
         check("description", "description is required").not().isEmpty(),
-        checkPermission,
         validarCampos
     ],
     createCategories
+)
+
+router.get(
+    "/allCategory",
+    getCategoria
 )
 
 router.get(

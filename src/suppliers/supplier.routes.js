@@ -4,16 +4,13 @@ import { validarJWT } from "../middlewares/validar-jwt.js";
 import { validarCampos } from "../middlewares/validar-campos.js";
 import { createSupplier, getSuppliers, getSupplierById , updateSupplier, deleteSupplier } from "./supplier.controller.js"
 import { existeSupplierById } from "../helpers/db-validator.js";
-import { checkRolePermission, checkPermission } from "../helpers/validation-user.js";
+import { checkRolePermission, checkPermission, checkPermissionAdd} from "../helpers/validation-user.js";
 
 const router = Router();
 
 router.post(
     '/', 
-    [
-        validarJWT, 
-        checkPermission
-    ], 
+    validarJWT,
     createSupplier
 );
 

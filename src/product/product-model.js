@@ -49,11 +49,11 @@ const ProductSchema = Schema(
             required: false
         },
         fechaDeVencimiento:{
-            type:Number,
+            type:Date,
             required: true
         },
         fechaDeEntrada:{
-            type:Number,
+            type:Date,
             required: true
         },
         precioUnitario:{

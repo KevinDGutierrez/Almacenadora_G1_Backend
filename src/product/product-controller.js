@@ -1,55 +1,64 @@
 import { response,request } from "express";
-import Product from "./product-model.js";
 import { hash, verify } from "argon2";
-
+import Product from "./product-model.js";
+import mongoose from "mongoose";
+import { existeCategoriaById, existeSupplierById } from '../helpers/db-validator.js';
 
 export const createProduct = async (req, res) => {
     try {
-        const data = req.body;
+        const {
+            name,
+            category,
+            stock,
+            supplier,
+            description,
+            entryDate, 
+            fechaDeVencimiento,
+            precioUnitario
+        } = req.body;
 
-        const productExistente = await Product.findOne({ name: data.name });
-        if (productExistente) {
-            return res.status(400).json({
-                success: false,
-                message: 'Product already exists'
-            });
+        const categoryId = typeof category === 'object' ? category._id : category;
+        const supplierId = typeof supplier === 'object' ? supplier._id : supplier;
+
+        try {
+            await existeCategoriaById(categoryId);
+            await existeSupplierById(supplierId);
+        } catch (error) {
+            return res.status(400).json({ success: false, message: error.message });
         }
 
-        const product = new Product({ ...data });
+        const newProduct = new Product({
+            name,
+            category: categoryId,
+            stock,
+            supplier: supplierId,
+            description,
+            fechaDeEntrada: entryDate, 
+            fechaDeVencimiento,
+            precioUnitario
+        });
 
-        await product.save();
+        await newProduct.save();
 
-        return res.status(201).json({ success: true, product });
+        res.status(201).json({ success: true, product: newProduct });
 
     } catch (error) {
-        console.error('Error creating product', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error creating product',
-            error: error.message
-        });
+        console.error('Error al crear producto:', error);
+        res.status(500).json({ success: false, message: 'Error interno del servidor', error: error.message });
     }
 };
 
+
 export const getProducts = async (req, res) => {
     try {
-        const { limite = 10, desde = 0 } = req.query;
-        const query = { status: true };
+        const products = await Product.find({ status: true })
+            .populate('category', 'name')  
+            .populate('supplier', 'name');  
 
-        const [total, productsRaw] = await Promise.all([
-            Product.countDocuments(query),
-            Product.find(query)
-                .populate('category', 'name')
-                .populate('supplier', 'name')
-                .skip(Number(desde))
-                .limit(Number(limite))
-        ]);        
-
-        return res.status(200).json({ success: true, total, products: productsRaw });
-
+        return res.status(200).json({ success: true, products });
     } catch (error) {
-        console.error("Error getting products", error);
-        return res.status(500).json({ success: false, message: 'Error getting products', error: error.message });
+        console.error("Error al obtener productos:", error);
+        return res.status(500).json({ success: false, msg: "Error al obtener productos", error: error.message });
     }
 };
 
@@ -89,41 +98,32 @@ export const getSearchProductsByName = async (req, res) => {
 export const updateProduct = async (req, res) => {
     try {
         const { id } = req.params;
-        const { _id, password, ...data } = req.body;
+        const {
+            name, description, category, stock,
+            supplier, fechaDeVencimiento, fechaDeEntrada, precioUnitario
+        } = req.body;
 
-
-        const productExists = await Product.findById(id);
-        if (!productExists) {
-            return res.status(404).json({
-                succes: false,
-                msg: "product not found",
-            });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ success: false, msg: "ID inválido" });
         }
 
-        if (password) {
-            const salt = bcrypt.genSaltSync(10);
-            data.password = bcrypt.hashSync(password, salt);
+        const updatedProduct = await Product.findByIdAndUpdate(
+            id,
+            { name, description, category, stock, supplier, fechaDeVencimiento, fechaDeEntrada, precioUnitario },
+            { new: true }
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ success: false, msg: "Producto no encontrado para actualizar" });
         }
 
-
-        const product = await Product.findByIdAndUpdate(id, data, { new: true });
-
-        return res.status(200).json({
-            succes: true,
-            msg: "successfully updated product",
-            product,
-        });
-
+        return res.status(200).json({ success: true, msg: "Producto actualizado correctamente", product: updatedProduct });
     } catch (error) {
-        console.error("error updating the product", error);
-
-        return res.status(500).json({
-            succes: false,
-            msg: "error updating the product",
-            error: error.message, 
-        });
+        console.error("Error en updateProduct:", error);
+        return res.status(500).json({ success: false, msg: "Error al actualizar producto", error: error.message });
     }
 };
+
 
 export const deleteProduct = async (req, res) => {
     try {
@@ -206,33 +206,26 @@ export const verificarVencimientos = (product, diasAntes) => {
     }
 };
 
+
 export const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const product = await Product.findById(id);
-        if (!product) {
-            return res.status(404).json({
-                success: false,
-                msg: "Product not found"
-            });
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ success: false, msg: "ID inválido" });
         }
 
-        const isLowStock = product.stock < product.minimumStock;
+        const product = await Product.findById(id)
+            .populate('category', 'name')
+            .populate('supplier', 'name');
 
-        return res.json({
-            success: true,
-            product,
-            lowStockWarning: isLowStock,
-            message: isLowStock ? "  Low stock, consider replenishing." : "Stock level is sufficient."
-        });
+        if (!product) {
+            return res.status(404).json({ success: false, msg: "Producto no encontrado" });
+        }
 
+        return res.status(200).json({ success: true, product });
     } catch (error) {
-        console.error("Error getting product", error);
-        return res.status(500).json({
-            success: false,
-            msg: "Server error",
-            error: error.message
-        });
+        console.error("Error en getProductById:", error);
+        return res.status(500).json({ success: false, msg: "Error al obtener producto", error: error.message });
     }
 };
